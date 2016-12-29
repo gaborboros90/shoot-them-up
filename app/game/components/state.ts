@@ -2,6 +2,8 @@
 
 import PIXI = require('pixi');
 
-let state;
+let state = {
+        actualScene: () => {}
+    };
 
 export = state;

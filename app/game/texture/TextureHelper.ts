@@ -3,8 +3,8 @@
 import PIXI = require('pixi');
 
 class TextureHelper {
-    public static fartherBackgroundTexture = '';
-    public static nearerBackgroundTexture = '';
+    public static fartherBackgroundTexture = './game/texture/images/farther-texture.PNG';
+    public static nearerBackgroundTexture = './game/texture/images/nearer-texture.png';
 
     private loader:PIXI.loaders.Loader = PIXI.loader;
 

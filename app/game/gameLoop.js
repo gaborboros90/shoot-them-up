@@ -2,7 +2,7 @@
 define(["require", "exports", './components/state', './components/renderer', './components/stage'], function (require, exports, state, renderer, stage) {
     function gameLoop() {
         requestAnimationFrame(gameLoop);
-        state();
+        state.actualScene();
         renderer.render(stage);
     }
     return gameLoop;

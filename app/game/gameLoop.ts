@@ -8,7 +8,7 @@ import stage = require('./components/stage');
 function gameLoop() {
     requestAnimationFrame(gameLoop);
 
-    state();
+    state.actualScene();
 
     renderer.render(stage);
 }
