@@ -2892,6 +2892,6 @@ declare module pixi {
     export var gl: typeof PIXI.glCore;
 }
 
-declare module "pixi.js" {
+declare module "pixi" {
     export = PIXI;
 }

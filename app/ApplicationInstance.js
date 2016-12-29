@@ -1,5 +1,5 @@
 /// <reference path="lib/pixi.js.d.ts" />
-define(["require", "exports"], function (require, exports) {
+define(["require", "exports", './game/ShootThemUp'], function (require, exports, ShootThemUp) {
     var ApplicationInstance = (function () {
         function ApplicationInstance() {
             this.splashScreenNode = document.querySelector('.splash-screen');
@@ -10,7 +10,6 @@ define(["require", "exports"], function (require, exports) {
         ApplicationInstance.prototype.init = function () {
             this.removeSplashScreen();
             this.attachListeners();
-            this.preLoadTextures();
         };
         ApplicationInstance.prototype.attachListeners = function () {
             var _this = this;
@@ -18,13 +17,13 @@ define(["require", "exports"], function (require, exports) {
             for (var index = 0; index < startGameButtonNode.length; index++) {
                 startGameButtonNode[index].addEventListener('click', function () {
                     _this.mainScreenNode.style.display = 'none';
+                    _this.shootThemUp = new ShootThemUp(_this.applicationContainerNode);
+                    _this.shootThemUp.startGame();
                 }, false);
             }
             exitGameButtonNode.addEventListener('click', function () {
                 window.location.href = 'http://playngo.com';
             }, false);
-        };
-        ApplicationInstance.prototype.preLoadTextures = function () {
         };
         ApplicationInstance.prototype.removeSplashScreen = function () {
             var _this = this;
