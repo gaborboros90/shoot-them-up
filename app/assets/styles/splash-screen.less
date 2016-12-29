@@ -1,0 +1,16 @@
+@import "mixins";
+
+.application-container {
+    .splash-screen {
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("../images/splash-screen.gif");
+        background-size: cover;
+        background-repeat: no-repeat;
+        .fadeOut(1s, 2s, forwards);
+    }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "shoot-them-up",
+  "version": "1.0.0",
+  "description": "Simple shoot them up with parralax scrolling",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaborboros90/shoot-them-up.git"
+  },
+  "author": "Gabor Boros",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gaborboros90/shoot-them-up/issues"
+  },
+  "homepage": "https://github.com/gaborboros90/shoot-them-up#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-typescript": "^0.8.0",
+    "grunt-autoprefixer": "^3.0.4",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-less": "^1.4.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-newer": "^1.2.0"
+  }
+}
