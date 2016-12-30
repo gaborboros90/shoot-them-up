@@ -1,13 +1,16 @@
 /// <reference path="../lib/pixi.js.d.ts" />
 
+import PIXI = require('pixi');
 import stage = require('./components/stage');
 import state = require('./components/state');
 import gameLoop = require('./gameLoop');
 import playScene = require('./game-scenes/playScene');
 import parallaxBackground = require('./components/sprites/parallaxBackground');
 import usersSpaceShip = require('./components/sprites/usersSpaceShip');
+import fireBolts = require('./components/sprites/fireBolts');
 import TextureHelper = require('./texture/TextureHelper');
 import keyboard = require('./utils/keyboard');
+import renderer = require('./components/renderer');
 
 class GameSetup {
     constructor() {
@@ -61,6 +64,18 @@ class GameSetup {
         };
     }
 
+    private fireWithSpaceShip(sprite:PIXI.Sprite):void {
+        renderer.view.addEventListener('click',() => {
+            let bolt = new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.laserBolt));
+
+            bolt.scale.set(0.1,0.1);
+            bolt.position.set(sprite.position.x + sprite.width + 5, sprite.position.y + (sprite.height / 2) - (bolt.height /2));
+            stage.addChild(bolt);
+
+            fireBolts.push(bolt);
+        },false);
+    }
+
     public init():void {
         parallaxBackground.fartherBackgroundTexture = new PIXI.extras.TilingSprite(PIXI.Texture.fromImage(TextureHelper.fartherBackgroundTexture), 800, 600);
         parallaxBackground.fartherBackgroundTexture.position.set(0, 0);
@@ -83,6 +98,7 @@ class GameSetup {
 
         stage.addChild(usersSpaceShip);
         this.moveSprite(usersSpaceShip, 3.5);
+        this.fireWithSpaceShip(usersSpaceShip);
 
         state.actualScene = playScene;
         gameLoop();

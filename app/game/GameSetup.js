@@ -1,5 +1,5 @@
 /// <reference path="../lib/pixi.js.d.ts" />
-define(["require", "exports", './components/stage', './components/state', './gameLoop', './game-scenes/playScene', './components/sprites/parallaxBackground', './components/sprites/usersSpaceShip', './texture/TextureHelper', './utils/keyboard'], function (require, exports, stage, state, gameLoop, playScene, parallaxBackground, usersSpaceShip, TextureHelper, keyboard) {
+define(["require", "exports", 'pixi', './components/stage', './components/state', './gameLoop', './game-scenes/playScene', './components/sprites/parallaxBackground', './components/sprites/usersSpaceShip', './components/sprites/fireBolts', './texture/TextureHelper', './utils/keyboard', './components/renderer'], function (require, exports, PIXI, stage, state, gameLoop, playScene, parallaxBackground, usersSpaceShip, fireBolts, TextureHelper, keyboard, renderer) {
     var GameSetup = (function () {
         function GameSetup() {
         }
@@ -42,6 +42,15 @@ define(["require", "exports", './components/stage', './components/state', './gam
                 }
             };
         };
+        GameSetup.prototype.fireWithSpaceShip = function (sprite) {
+            renderer.view.addEventListener('click', function () {
+                var bolt = new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.laserBolt));
+                bolt.scale.set(0.1, 0.1);
+                bolt.position.set(sprite.position.x + sprite.width + 5, sprite.position.y + (sprite.height / 2) - (bolt.height / 2));
+                stage.addChild(bolt);
+                fireBolts.push(bolt);
+            }, false);
+        };
         GameSetup.prototype.init = function () {
             parallaxBackground.fartherBackgroundTexture = new PIXI.extras.TilingSprite(PIXI.Texture.fromImage(TextureHelper.fartherBackgroundTexture), 800, 600);
             parallaxBackground.fartherBackgroundTexture.position.set(0, 0);
@@ -58,6 +67,7 @@ define(["require", "exports", './components/stage', './components/state', './gam
             usersSpaceShip.vy = 0;
             stage.addChild(usersSpaceShip);
             this.moveSprite(usersSpaceShip, 3.5);
+            this.fireWithSpaceShip(usersSpaceShip);
             state.actualScene = playScene;
             gameLoop();
         };

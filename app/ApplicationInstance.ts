@@ -13,6 +13,7 @@ class ApplicationInstance {
     }
 
     public init():void {
+        this.showMainScreen();
         this.removeSplashScreen();
         this.attachListeners();
     }
@@ -37,7 +38,11 @@ class ApplicationInstance {
     private removeSplashScreen():void {
         window.setTimeout(() => {
             this.applicationContainerNode.removeChild(this.splashScreenNode);
-        }, 2000);
+        }, 1500);
+    }
+
+    private showMainScreen(): void {
+        this.mainScreenNode.style.display = 'block';
     }
 }
 

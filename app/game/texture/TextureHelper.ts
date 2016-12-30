@@ -6,6 +6,7 @@ class TextureHelper {
     public static fartherBackgroundTexture:string = './game/texture/images/farther-texture.PNG';
     public static nearerBackgroundTexture:string = './game/texture/images/nearer-texture.png';
     public static usersSpaceShip:string = './game/texture/images/users-spaceship.png';
+    public static laserBolt:string = './game/texture/images/laser-bolt.png';
 
     private loader:PIXI.loaders.Loader = PIXI.loader;
 

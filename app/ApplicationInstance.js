@@ -8,6 +8,7 @@ define(["require", "exports", './game/ShootThemUp'], function (require, exports,
             this.gameScreenNode = document.querySelector('.game-container');
         }
         ApplicationInstance.prototype.init = function () {
+            this.showMainScreen();
             this.removeSplashScreen();
             this.attachListeners();
         };
@@ -29,7 +30,10 @@ define(["require", "exports", './game/ShootThemUp'], function (require, exports,
             var _this = this;
             window.setTimeout(function () {
                 _this.applicationContainerNode.removeChild(_this.splashScreenNode);
-            }, 2000);
+            }, 1500);
+        };
+        ApplicationInstance.prototype.showMainScreen = function () {
+            this.mainScreenNode.style.display = 'block';
         };
         return ApplicationInstance;
     })();

@@ -15,6 +15,7 @@ define(["require", "exports", 'pixi'], function (require, exports, PIXI) {
         TextureHelper.fartherBackgroundTexture = './game/texture/images/farther-texture.PNG';
         TextureHelper.nearerBackgroundTexture = './game/texture/images/nearer-texture.png';
         TextureHelper.usersSpaceShip = './game/texture/images/users-spaceship.png';
+        TextureHelper.laserBolt = './game/texture/images/laser-bolt.png';
         return TextureHelper;
     })();
     return TextureHelper;
