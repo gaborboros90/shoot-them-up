@@ -53,6 +53,13 @@ function moveEnemiesSpacehips():PIXI.Sprite[] {
         else {
             spaceShip.position.x -= 4;
 
+            if(spaceShip.move === 'up') {
+                spaceShip.position.y += 0.5;
+            }
+            else if(spaceShip.move === 'down') {
+                spaceShip.position.y -= 0.5;
+            }
+
             return true;
         }
     });

@@ -53,10 +53,19 @@ define(["require", "exports", 'pixi', './components/stage', './components/state'
         };
         GameSetup.prototype.emitEnemySpaceShips = function () {
             Timer.timerId = window.setInterval(function () {
-                var spaceShip = Math.random() > 0.5 ? new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.enemy1)) : new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.enemy2));
+                var spaceShip = Math.random() > 0.5 ? new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.enemy1)) : new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.enemy2)), randomVertical = Math.random();
                 spaceShip.width = 96;
                 spaceShip.height = 48;
                 spaceShip.position.set(800, Math.random() * (400 - 100) + 100);
+                if (randomVertical >= 0 && randomVertical < 0.4) {
+                    spaceShip.move = 'up';
+                }
+                else if (randomVertical >= 0.4 && randomVertical < 0.75) {
+                    spaceShip.move = 'down';
+                }
+                else {
+                    spaceShip.move = 'normal';
+                }
                 stage.addChild(spaceShip);
                 EnemiesSpaceShips.spaceShipsList.push(spaceShip);
             }, 2000);

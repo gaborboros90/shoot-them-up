@@ -1207,6 +1207,7 @@ declare module PIXI {
         height: number;
         vx: number;
         vy: number;
+        move: string;
 
         protected _onTextureUpdate(): void;
         calculateVertices(): void;
