@@ -9,7 +9,8 @@ define(["require", "exports", './texture/TextureHelper', './GameSetup', './compo
         ShootThemUp.prototype.startGame = function () {
             this.initRenderer();
             this.textureHelper.loadTextures()
-                .load(this.gameSetup.init);
+                .load();
+            this.gameSetup.init();
         };
         ShootThemUp.prototype.initRenderer = function () {
             this.containerElem.appendChild(renderer.view);
