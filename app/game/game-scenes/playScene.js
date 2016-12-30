@@ -1,5 +1,5 @@
 /// <reference path="../../lib/pixi.js.d.ts" />
-define(["require", "exports", '../components/stage', '../components/sprites/parallaxBackground', '../components/sprites/usersSpaceShip', '../utils/BoundaryLimiter', '../components/sprites/FireBolts', '../components/sprites/EnemiesSpaceShips'], function (require, exports, stage, parallaxBackground, usersSpaceShip, BoundaryLimiter, FireBolts, EnemiesSpaceShips) {
+define(["require", "exports", '../components/stage', '../components/state', '../components/sprites/parallaxBackground', '../components/sprites/usersSpaceShip', '../utils/BoundaryLimiter', '../utils/hitTestRectangle', '../components/sprites/FireBolts', '../components/sprites/EnemiesSpaceShips', './endGameScene', '../utils/Timer'], function (require, exports, stage, state, parallaxBackground, usersSpaceShip, BoundaryLimiter, hitTestRectangle, FireBolts, EnemiesSpaceShips, endGameScene, Timer) {
     function playScene() {
         var spaceShipDimensions = {
             width: usersSpaceShip.width,
@@ -11,6 +11,8 @@ define(["require", "exports", '../components/stage', '../components/sprites/para
         usersSpaceShip.position.y = boundaryLimiter.limitVertically(usersSpaceShip.position.y, usersSpaceShip.vy);
         FireBolts.fireBoltsList = moveFireBolts();
         EnemiesSpaceShips.spaceShipsList = moveEnemiesSpacehips();
+        detectEnemySpaceShipDestroy();
+        detectUsersSpaceShipDestroy();
         spaceShipDimensions = null;
         boundaryLimiter = null;
     }
@@ -41,6 +43,31 @@ define(["require", "exports", '../components/stage', '../components/sprites/para
                     spaceShip.position.y -= 0.5;
                 }
                 return true;
+            }
+        });
+    }
+    function detectEnemySpaceShipDestroy() {
+        EnemiesSpaceShips.spaceShipsList.forEach(function (ship) {
+            FireBolts.fireBoltsList.forEach(function (bolt) {
+                if (hitTestRectangle(ship, bolt)) {
+                    stage.removeChild(ship);
+                    stage.removeChild(bolt);
+                    ship.x = -800;
+                    ship.y = -800;
+                    bolt.x = -800;
+                    bolt.y = -800;
+                }
+            });
+        });
+    }
+    function detectUsersSpaceShipDestroy() {
+        EnemiesSpaceShips.spaceShipsList.forEach(function (ship) {
+            if (hitTestRectangle(usersSpaceShip, ship)) {
+                stage.removeChild(ship);
+                stage.removeChild(usersSpaceShip);
+                usersSpaceShip.position.set(800, 600);
+                state.actualScene = endGameScene;
+                window.clearInterval(Timer.timerId);
             }
         });
     }
