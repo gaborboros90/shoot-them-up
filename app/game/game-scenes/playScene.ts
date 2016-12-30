@@ -6,7 +6,8 @@ import parallaxBackground = require('../components/sprites/parallaxBackground');
 import usersSpaceShip = require('../components/sprites/usersSpaceShip');
 import BoundaryLimiter = require('../utils/BoundaryLimiter');
 import ComponentDimension = require('../components/types/ComponentDimension');
-import fireBolts = require('../components/sprites/fireBolts');
+import FireBolts = require('../components/sprites/FireBolts');
+import EnemiesSpaceShips = require('../components/sprites/EnemiesSpaceShips');
 
 function playScene() {
     let spaceShipDimensions: ComponentDimension = {
@@ -20,14 +21,15 @@ function playScene() {
 
     usersSpaceShip.position.x = boundaryLimiter.limitHorizontally(usersSpaceShip.position.x, usersSpaceShip.vx);
     usersSpaceShip.position.y = boundaryLimiter.limitVertically(usersSpaceShip.position.y, usersSpaceShip.vy);
-    moveFireBolts(fireBolts);
+    FireBolts.fireBoltsList = moveFireBolts();
+    EnemiesSpaceShips.spaceShipsList = moveEnemiesSpacehips();
 
     spaceShipDimensions = null;
     boundaryLimiter = null;
 }
 
-function moveFireBolts(fireBolts: PIXI.Sprite[]) {
-    fireBolts = fireBolts.filter((bolt) => {
+function moveFireBolts():PIXI.Sprite[] {
+    return FireBolts.fireBoltsList.filter((bolt) => {
         if(bolt.position.x > 800) {
             stage.removeChild(bolt);
 
@@ -35,6 +37,21 @@ function moveFireBolts(fireBolts: PIXI.Sprite[]) {
         }
         else {
             bolt.position.x += 10;
+
+            return true;
+        }
+    });
+}
+
+function moveEnemiesSpacehips():PIXI.Sprite[] {
+    return EnemiesSpaceShips.spaceShipsList.filter((spaceShip) => {
+        if(spaceShip.position.x < -1 * spaceShip.width || spaceShip.position.y < -1 * spaceShip.height || spaceShip.position.y >  800) {
+            stage.removeChild(spaceShip);
+
+            return false;
+        }
+        else {
+            spaceShip.position.x -= 4;
 
             return true;
         }

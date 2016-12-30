@@ -2,6 +2,8 @@
 
 import PIXI = require('pixi');
 
-let fireBolts: PIXI.Sprite[] = [];
+class FireBolts {
+    public static fireBoltsList: PIXI.Sprite[] = [];
+}
 
-export = fireBolts;
+export = FireBolts;

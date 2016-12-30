@@ -7,9 +7,11 @@ import gameLoop = require('./gameLoop');
 import playScene = require('./game-scenes/playScene');
 import parallaxBackground = require('./components/sprites/parallaxBackground');
 import usersSpaceShip = require('./components/sprites/usersSpaceShip');
-import fireBolts = require('./components/sprites/fireBolts');
+import FireBolts = require('./components/sprites/FireBolts');
+import EnemiesSpaceShips = require('./components/sprites/EnemiesSpaceShips');
 import TextureHelper = require('./texture/TextureHelper');
 import keyboard = require('./utils/keyboard');
+import Timer = require('./utils/Timer');
 import renderer = require('./components/renderer');
 
 class GameSetup {
@@ -72,14 +74,28 @@ class GameSetup {
             bolt.position.set(sprite.position.x + sprite.width + 5, sprite.position.y + (sprite.height / 2) - (bolt.height /2));
             stage.addChild(bolt);
 
-            fireBolts.push(bolt);
+            FireBolts.fireBoltsList.push(bolt);
         },false);
+    }
+
+    private emitEnemySpaceShips(): void {
+        Timer.timerId = window.setInterval(() => {
+            let spaceShip = Math.random() > 0.5 ? new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.enemy1)) : new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.enemy2));
+
+            spaceShip.width = 96;
+            spaceShip.height = 48;
+            spaceShip.position.set(800, Math.random() * (400 - 100) + 100);
+
+            stage.addChild(spaceShip);
+
+            EnemiesSpaceShips.spaceShipsList.push(spaceShip);
+        }, 2000);
     }
 
     public init():void {
         parallaxBackground.fartherBackgroundTexture = new PIXI.extras.TilingSprite(PIXI.Texture.fromImage(TextureHelper.fartherBackgroundTexture), 800, 600);
         parallaxBackground.fartherBackgroundTexture.position.set(0, 0);
-        parallaxBackground.fartherBackgroundTexture.tilePosition.set(0, 0)
+        parallaxBackground.fartherBackgroundTexture.tilePosition.set(0, 0);
 
         stage.addChild(parallaxBackground.fartherBackgroundTexture);
 
@@ -99,6 +115,7 @@ class GameSetup {
         stage.addChild(usersSpaceShip);
         this.moveSprite(usersSpaceShip, 3.5);
         this.fireWithSpaceShip(usersSpaceShip);
+        this.emitEnemySpaceShips();
 
         state.actualScene = playScene;
         gameLoop();
