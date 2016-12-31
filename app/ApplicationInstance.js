@@ -5,7 +5,6 @@ define(["require", "exports", './game/ShootThemUp'], function (require, exports,
             this.splashScreenNode = document.querySelector('.splash-screen');
             this.applicationContainerNode = document.querySelector('.application-container');
             this.mainScreenNode = document.querySelector('.main-screen');
-            this.gameScreenNode = document.querySelector('.game-container');
         }
         ApplicationInstance.prototype.init = function () {
             this.showMainScreen();

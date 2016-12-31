@@ -17,9 +17,6 @@ class ShootThemUp {
 
     public startGame():void {
         this.initRenderer();
-        this.textureHelper.loadTextures()
-            .load();
-
         this.gameSetup.init();
     }
 

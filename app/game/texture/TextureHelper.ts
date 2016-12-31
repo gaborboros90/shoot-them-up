@@ -9,20 +9,6 @@ class TextureHelper {
     public static laserBolt:string = './game/texture/images/laser-bolt.png';
     public static enemy1:string = './game/texture/images/enemy-1.png';
     public static enemy2:string = './game/texture/images/enemy-2.png';
-
-    private loader:PIXI.loaders.Loader = PIXI.loader;
-
-    constructor() {
-    }
-
-    public loadTextures():PIXI.loaders.Loader {
-        return this.loader
-            .add([
-                TextureHelper.fartherBackgroundTexture,
-                TextureHelper.nearerBackgroundTexture,
-                TextureHelper.usersSpaceShip
-            ]);
-    }
 }
 
 export = TextureHelper;

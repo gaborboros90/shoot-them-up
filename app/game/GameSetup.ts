@@ -11,6 +11,7 @@ import FireBolts = require('./components/sprites/FireBolts');
 import EnemiesSpaceShips = require('./components/sprites/EnemiesSpaceShips');
 import TextureHelper = require('./texture/TextureHelper');
 import keyboard = require('./utils/keyboard');
+import CanvasDimensions = require('./utils/CanvasDimensions');
 import Timer = require('./utils/Timer');
 import renderer = require('./components/renderer');
 
@@ -78,14 +79,14 @@ class GameSetup {
         },false);
     }
 
-    private emitEnemySpaceShips(): void {
+    private generateEnemySpaceships(): void {
         Timer.timerId = window.setInterval(() => {
             let spaceShip = Math.random() > 0.5 ? new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.enemy1)) : new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.enemy2)),
                 randomVertical = Math.random();
 
             spaceShip.width = 96;
             spaceShip.height = 48;
-            spaceShip.position.set(800, Math.random() * (400 - 100) + 100);
+            spaceShip.position.set(CanvasDimensions.width, Math.random() * (CanvasDimensions.width / 2 - 100) + 100);
 
             if(randomVertical >= 0 && randomVertical < 0.4) {
                 spaceShip.move = 'up';
@@ -104,13 +105,13 @@ class GameSetup {
     }
 
     public init():void {
-        parallaxBackground.fartherBackgroundTexture = new PIXI.extras.TilingSprite(PIXI.Texture.fromImage(TextureHelper.fartherBackgroundTexture), 800, 600);
+        parallaxBackground.fartherBackgroundTexture = new PIXI.extras.TilingSprite(PIXI.Texture.fromImage(TextureHelper.fartherBackgroundTexture), CanvasDimensions.width, CanvasDimensions.height);
         parallaxBackground.fartherBackgroundTexture.position.set(0, 0);
         parallaxBackground.fartherBackgroundTexture.tilePosition.set(0, 0);
 
         stage.addChild(parallaxBackground.fartherBackgroundTexture);
 
-        parallaxBackground.nearerBackground = new PIXI.extras.TilingSprite(PIXI.Texture.fromImage(TextureHelper.nearerBackgroundTexture), 800, 480);
+        parallaxBackground.nearerBackground = new PIXI.extras.TilingSprite(PIXI.Texture.fromImage(TextureHelper.nearerBackgroundTexture), CanvasDimensions.width, CanvasDimensions.height - 120);
         parallaxBackground.nearerBackground.position.set(0, 240);
         parallaxBackground.nearerBackground.tilePosition.set(0, 0);
 
@@ -126,7 +127,7 @@ class GameSetup {
         stage.addChild(usersSpaceShip);
         this.moveSprite(usersSpaceShip, 3.5);
         this.fireWithSpaceShip(usersSpaceShip);
-        this.emitEnemySpaceShips();
+        this.generateEnemySpaceships();
 
         state.actualScene = playScene;
         gameLoop();

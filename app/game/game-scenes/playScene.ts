@@ -12,13 +12,14 @@ import FireBolts = require('../components/sprites/FireBolts');
 import EnemiesSpaceShips = require('../components/sprites/EnemiesSpaceShips');
 import endGameScene = require('./endGameScene');
 import Timer = require('../utils/Timer');
+import CanvasDimensions = require('../utils/CanvasDimensions');
 
 function playScene() {
     let spaceShipDimensions:ComponentDimension = {
             width: usersSpaceShip.width,
             height: usersSpaceShip.height
         },
-        boundaryLimiter = new BoundaryLimiter(0, 0, 800, 600, spaceShipDimensions);
+        boundaryLimiter = new BoundaryLimiter(0, 0, CanvasDimensions.width, CanvasDimensions.height, spaceShipDimensions);
 
     parallaxBackground.fartherBackgroundTexture.tilePosition.x -= 0.64;
     parallaxBackground.nearerBackground.tilePosition.x -= 1.4;
@@ -36,7 +37,7 @@ function playScene() {
 
 function moveFireBolts():PIXI.Sprite[] {
     return FireBolts.fireBoltsList.filter((bolt) => {
-        if (bolt.position.x > 800) {
+        if (bolt.position.x > CanvasDimensions.width) {
             stage.removeChild(bolt);
 
             return false;
@@ -51,7 +52,7 @@ function moveFireBolts():PIXI.Sprite[] {
 
 function moveEnemiesSpacehips():PIXI.Sprite[] {
     return EnemiesSpaceShips.spaceShipsList.filter((spaceShip) => {
-        if (spaceShip.position.x < -1 * spaceShip.width || spaceShip.position.y < -1 * spaceShip.height || spaceShip.position.y > 800) {
+        if (spaceShip.position.x < -1 * spaceShip.width || spaceShip.position.y < -1 * spaceShip.height || spaceShip.position.y > CanvasDimensions.width) {
             stage.removeChild(spaceShip);
 
             return false;
@@ -78,10 +79,8 @@ function detectEnemySpaceShipDestroy():void {
                 stage.removeChild(ship);
                 stage.removeChild(bolt);
 
-                ship.x = -800;
-                ship.y = -800;
-                bolt.x = -800;
-                bolt.y = -800;
+                ship.position.set(-1000,-1000);
+                bolt.position.set(-1000,-1000);
             }
         });
     });
@@ -92,7 +91,7 @@ function detectUsersSpaceShipDestroy():void {
         if(hitTestRectangle(usersSpaceShip,ship)){
             stage.removeChild(ship);
             stage.removeChild(usersSpaceShip);
-            usersSpaceShip.position.set(800,600);
+            usersSpaceShip.position.set(CanvasDimensions.width,CanvasDimensions.height);
 
             state.actualScene = endGameScene;
             window.clearInterval(Timer.timerId);

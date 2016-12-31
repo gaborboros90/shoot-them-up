@@ -1,10 +1,10 @@
 /// <reference path="../../lib/pixi.js.d.ts" />
-define(["require", "exports", '../components/stage', '../components/state', '../components/sprites/parallaxBackground', '../components/sprites/usersSpaceShip', '../utils/BoundaryLimiter', '../utils/hitTestRectangle', '../components/sprites/FireBolts', '../components/sprites/EnemiesSpaceShips', './endGameScene', '../utils/Timer'], function (require, exports, stage, state, parallaxBackground, usersSpaceShip, BoundaryLimiter, hitTestRectangle, FireBolts, EnemiesSpaceShips, endGameScene, Timer) {
+define(["require", "exports", '../components/stage', '../components/state', '../components/sprites/parallaxBackground', '../components/sprites/usersSpaceShip', '../utils/BoundaryLimiter', '../utils/hitTestRectangle', '../components/sprites/FireBolts', '../components/sprites/EnemiesSpaceShips', './endGameScene', '../utils/Timer', '../utils/CanvasDimensions'], function (require, exports, stage, state, parallaxBackground, usersSpaceShip, BoundaryLimiter, hitTestRectangle, FireBolts, EnemiesSpaceShips, endGameScene, Timer, CanvasDimensions) {
     function playScene() {
         var spaceShipDimensions = {
             width: usersSpaceShip.width,
             height: usersSpaceShip.height
-        }, boundaryLimiter = new BoundaryLimiter(0, 0, 800, 600, spaceShipDimensions);
+        }, boundaryLimiter = new BoundaryLimiter(0, 0, CanvasDimensions.width, CanvasDimensions.height, spaceShipDimensions);
         parallaxBackground.fartherBackgroundTexture.tilePosition.x -= 0.64;
         parallaxBackground.nearerBackground.tilePosition.x -= 1.4;
         usersSpaceShip.position.x = boundaryLimiter.limitHorizontally(usersSpaceShip.position.x, usersSpaceShip.vx);
@@ -18,7 +18,7 @@ define(["require", "exports", '../components/stage', '../components/state', '../
     }
     function moveFireBolts() {
         return FireBolts.fireBoltsList.filter(function (bolt) {
-            if (bolt.position.x > 800) {
+            if (bolt.position.x > CanvasDimensions.width) {
                 stage.removeChild(bolt);
                 return false;
             }
@@ -30,7 +30,7 @@ define(["require", "exports", '../components/stage', '../components/state', '../
     }
     function moveEnemiesSpacehips() {
         return EnemiesSpaceShips.spaceShipsList.filter(function (spaceShip) {
-            if (spaceShip.position.x < -1 * spaceShip.width || spaceShip.position.y < -1 * spaceShip.height || spaceShip.position.y > 800) {
+            if (spaceShip.position.x < -1 * spaceShip.width || spaceShip.position.y < -1 * spaceShip.height || spaceShip.position.y > CanvasDimensions.width) {
                 stage.removeChild(spaceShip);
                 return false;
             }
@@ -52,10 +52,8 @@ define(["require", "exports", '../components/stage', '../components/state', '../
                 if (hitTestRectangle(ship, bolt)) {
                     stage.removeChild(ship);
                     stage.removeChild(bolt);
-                    ship.x = -800;
-                    ship.y = -800;
-                    bolt.x = -800;
-                    bolt.y = -800;
+                    ship.position.set(-1000, -1000);
+                    bolt.position.set(-1000, -1000);
                 }
             });
         });
@@ -65,7 +63,7 @@ define(["require", "exports", '../components/stage', '../components/state', '../
             if (hitTestRectangle(usersSpaceShip, ship)) {
                 stage.removeChild(ship);
                 stage.removeChild(usersSpaceShip);
-                usersSpaceShip.position.set(800, 600);
+                usersSpaceShip.position.set(CanvasDimensions.width, CanvasDimensions.height);
                 state.actualScene = endGameScene;
                 window.clearInterval(Timer.timerId);
             }

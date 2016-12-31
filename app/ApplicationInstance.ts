@@ -6,7 +6,6 @@ class ApplicationInstance {
     private splashScreenNode:HTMLElement = <HTMLElement>document.querySelector('.splash-screen');
     private applicationContainerNode:HTMLElement = <HTMLElement>document.querySelector('.application-container');
     private mainScreenNode:HTMLElement = <HTMLElement>document.querySelector('.main-screen');
-    private gameScreenNode:HTMLElement = <HTMLElement>document.querySelector('.game-container');
     private shootThemUp: ShootThemUp;
 
     constructor() {

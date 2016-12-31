@@ -4,9 +4,10 @@ import PIXI = require('pixi');
 import state = require('./components/state');
 import renderer = require('./components/renderer');
 import stage = require('./components/stage');
+import RequestAnimHelper = require('./components/RequestAnimHelper');
 
 function gameLoop() {
-    requestAnimationFrame(gameLoop);
+    RequestAnimHelper.ID = window.requestAnimationFrame(gameLoop);
 
     state.actualScene();
 

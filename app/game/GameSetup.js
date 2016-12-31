@@ -1,5 +1,5 @@
 /// <reference path="../lib/pixi.js.d.ts" />
-define(["require", "exports", 'pixi', './components/stage', './components/state', './gameLoop', './game-scenes/playScene', './components/sprites/parallaxBackground', './components/sprites/usersSpaceShip', './components/sprites/FireBolts', './components/sprites/EnemiesSpaceShips', './texture/TextureHelper', './utils/keyboard', './utils/Timer', './components/renderer'], function (require, exports, PIXI, stage, state, gameLoop, playScene, parallaxBackground, usersSpaceShip, FireBolts, EnemiesSpaceShips, TextureHelper, keyboard, Timer, renderer) {
+define(["require", "exports", 'pixi', './components/stage', './components/state', './gameLoop', './game-scenes/playScene', './components/sprites/parallaxBackground', './components/sprites/usersSpaceShip', './components/sprites/FireBolts', './components/sprites/EnemiesSpaceShips', './texture/TextureHelper', './utils/keyboard', './utils/CanvasDimensions', './utils/Timer', './components/renderer'], function (require, exports, PIXI, stage, state, gameLoop, playScene, parallaxBackground, usersSpaceShip, FireBolts, EnemiesSpaceShips, TextureHelper, keyboard, CanvasDimensions, Timer, renderer) {
     var GameSetup = (function () {
         function GameSetup() {
         }
@@ -51,12 +51,12 @@ define(["require", "exports", 'pixi', './components/stage', './components/state'
                 FireBolts.fireBoltsList.push(bolt);
             }, false);
         };
-        GameSetup.prototype.emitEnemySpaceShips = function () {
+        GameSetup.prototype.generateEnemySpaceships = function () {
             Timer.timerId = window.setInterval(function () {
                 var spaceShip = Math.random() > 0.5 ? new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.enemy1)) : new PIXI.Sprite(PIXI.Texture.fromImage(TextureHelper.enemy2)), randomVertical = Math.random();
                 spaceShip.width = 96;
                 spaceShip.height = 48;
-                spaceShip.position.set(800, Math.random() * (400 - 100) + 100);
+                spaceShip.position.set(CanvasDimensions.width, Math.random() * (CanvasDimensions.width / 2 - 100) + 100);
                 if (randomVertical >= 0 && randomVertical < 0.4) {
                     spaceShip.move = 'up';
                 }
@@ -71,11 +71,11 @@ define(["require", "exports", 'pixi', './components/stage', './components/state'
             }, 2000);
         };
         GameSetup.prototype.init = function () {
-            parallaxBackground.fartherBackgroundTexture = new PIXI.extras.TilingSprite(PIXI.Texture.fromImage(TextureHelper.fartherBackgroundTexture), 800, 600);
+            parallaxBackground.fartherBackgroundTexture = new PIXI.extras.TilingSprite(PIXI.Texture.fromImage(TextureHelper.fartherBackgroundTexture), CanvasDimensions.width, CanvasDimensions.height);
             parallaxBackground.fartherBackgroundTexture.position.set(0, 0);
             parallaxBackground.fartherBackgroundTexture.tilePosition.set(0, 0);
             stage.addChild(parallaxBackground.fartherBackgroundTexture);
-            parallaxBackground.nearerBackground = new PIXI.extras.TilingSprite(PIXI.Texture.fromImage(TextureHelper.nearerBackgroundTexture), 800, 480);
+            parallaxBackground.nearerBackground = new PIXI.extras.TilingSprite(PIXI.Texture.fromImage(TextureHelper.nearerBackgroundTexture), CanvasDimensions.width, CanvasDimensions.height - 120);
             parallaxBackground.nearerBackground.position.set(0, 240);
             parallaxBackground.nearerBackground.tilePosition.set(0, 0);
             stage.addChild(parallaxBackground.nearerBackground);
@@ -87,7 +87,7 @@ define(["require", "exports", 'pixi', './components/stage', './components/state'
             stage.addChild(usersSpaceShip);
             this.moveSprite(usersSpaceShip, 3.5);
             this.fireWithSpaceShip(usersSpaceShip);
-            this.emitEnemySpaceShips();
+            this.generateEnemySpaceships();
             state.actualScene = playScene;
             gameLoop();
         };
