@@ -1,5 +1,5 @@
 /// <reference path="../../lib/pixi.js.d.ts" />
-define(["require", "exports", 'pixi', '../components/stage', '../components/RequestAnimHelper', '../components/renderer', '../components/sprites/FireBolts', '../components/sprites/EnemiesSpaceShips'], function (require, exports, PIXI, stage, RequestAnimHelper, renderer, FireBolts, EnemiesSpaceShips) {
+define(["require", "exports", 'pixi', '../components/stage', '../utils/RequestAnimHelper', '../components/renderer', '../components/sprites/FireBolts', '../components/sprites/EnemiesSpaceShips'], function (require, exports, PIXI, stage, RequestAnimHelper, renderer, FireBolts, EnemiesSpaceShips) {
     function endGameScene() {
         var gameOverText = new PIXI.Text("You've lost the game!", {
             fontFamily: 'Arial',

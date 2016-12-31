@@ -2,7 +2,7 @@
 
 import PIXI = require('pixi');
 import stage = require('../components/stage');
-import RequestAnimHelper = require('../components/RequestAnimHelper');
+import RequestAnimHelper = require('../utils/RequestAnimHelper');
 import renderer = require('../components/renderer');
 import FireBolts = require('../components/sprites/FireBolts');
 import EnemiesSpaceShips = require('../components/sprites/EnemiesSpaceShips');
