@@ -80,8 +80,11 @@
   box-sizing: border-box;
 }
 .application-container {
-  position: relative;
+  position: fixed;
   width: 800px;
   height: 600px;
-  margin: 100px auto 0 auto;
+  top: 50%;
+  margin-top: -300px;
+  left: 50%;
+  margin-left: -400px;
 }

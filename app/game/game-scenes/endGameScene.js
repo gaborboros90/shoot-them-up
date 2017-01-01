@@ -1,5 +1,5 @@
 /// <reference path="../../lib/pixi.js.d.ts" />
-define(["require", "exports", 'pixi', '../components/stage', '../utils/RequestAnimHelper', '../components/renderer', '../components/sprites/FireBolts', '../components/sprites/EnemiesSpaceShips'], function (require, exports, PIXI, stage, RequestAnimHelper, renderer, FireBolts, EnemiesSpaceShips) {
+define(["require", "exports", 'pixi', '../components/stage', '../utils/CanvasDimensions', '../utils/RequestAnimHelper', '../components/renderer', '../components/sprites/FireBolts', '../components/sprites/EnemiesSpaceShips'], function (require, exports, PIXI, stage, CanvasDimensions, RequestAnimHelper, renderer, FireBolts, EnemiesSpaceShips) {
     /**
      * @method endGameScene
      * @description Publish the result of the game, and call backToMainScreen method
@@ -10,7 +10,7 @@ define(["require", "exports", 'pixi', '../components/stage', '../utils/RequestAn
             fontSize: 42, fill: 'white'
         });
         stage.removeChildren(1);
-        gameOverText.position.set(stage.width / 2 - gameOverText.width / 2, 300 - gameOverText.height / 2);
+        gameOverText.position.set(stage.width / 2 - gameOverText.width / 2, CanvasDimensions.height / 2 - gameOverText.height / 2);
         stage.addChild(gameOverText);
         window.cancelAnimationFrame(RequestAnimHelper.ID);
         backToMainScreen();
