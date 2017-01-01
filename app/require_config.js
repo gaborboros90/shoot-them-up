@@ -2,7 +2,8 @@ require.config({
     baseUrl: '',
     paths: {
         'ApplicationInstance': 'ApplicationInstance',
-        'pixi': './lib/pixi'
+        'pixi': './lib/pixi',
+        'dust': './lib/dust'
     },
     shim: {
         'pixi': {'exports' : 'PIXI'}
@@ -12,8 +13,9 @@ require.config({
 
 require([
         'pixi',
+        'dust',
         './ApplicationInstance'
-    ], function(PIXI, ApplicationInstance) {
+    ], function(PIXI, dust, ApplicationInstance) {
         console.log(new ApplicationInstance().init());
     }
 

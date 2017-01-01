@@ -2898,3 +2898,5 @@ declare module pixi {
 declare module "pixi" {
     export = PIXI;
 }
+
+declare var Dust: any;

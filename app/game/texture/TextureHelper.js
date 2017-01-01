@@ -9,6 +9,7 @@ define(["require", "exports"], function (require, exports) {
         TextureHelper.laserBolt = './game/texture/images/laser-bolt.png';
         TextureHelper.enemy1 = './game/texture/images/enemy-1.png';
         TextureHelper.enemy2 = './game/texture/images/enemy-2.png';
+        TextureHelper.explosion = './game/texture/images/explosion-particle.png';
         return TextureHelper;
     })();
     return TextureHelper;

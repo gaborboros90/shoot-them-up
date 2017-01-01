@@ -13,6 +13,7 @@ import EnemiesSpaceShips = require('../components/sprites/EnemiesSpaceShips');
 import endGameScene = require('./endGameScene');
 import Timer = require('../utils/Timer');
 import CanvasDimensions = require('../utils/CanvasDimensions');
+import ExplosionParticle = require('../components/particles/ExplosionParticle');
 
 function playScene() {
     let spaceShipDimensions:ComponentDimension = {
@@ -79,6 +80,8 @@ function detectEnemySpaceShipDestroy():void {
                 stage.removeChild(ship);
                 stage.removeChild(bolt);
 
+                ExplosionParticle.createExplosion(ship.position.x + ship.width / 2, ship.position.y + ship.height / 2);
+
                 ship.position.set(-1000,-1000);
                 bolt.position.set(-1000,-1000);
             }
@@ -91,6 +94,9 @@ function detectUsersSpaceShipDestroy():void {
         if(hitTestRectangle(usersSpaceShip,ship)){
             stage.removeChild(ship);
             stage.removeChild(usersSpaceShip);
+
+            ExplosionParticle.createExplosion(ship.position.x + ship.width / 2, ship.position.y + ship.height / 2);
+
             usersSpaceShip.position.set(CanvasDimensions.width,CanvasDimensions.height);
 
             state.actualScene = endGameScene;

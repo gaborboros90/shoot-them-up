@@ -1,5 +1,5 @@
 /// <reference path="../../lib/pixi.js.d.ts" />
-define(["require", "exports", '../components/stage', '../components/state', '../components/sprites/parallaxBackground', '../components/sprites/usersSpaceShip', '../utils/BoundaryLimiter', '../utils/hitTestRectangle', '../components/sprites/FireBolts', '../components/sprites/EnemiesSpaceShips', './endGameScene', '../utils/Timer', '../utils/CanvasDimensions'], function (require, exports, stage, state, parallaxBackground, usersSpaceShip, BoundaryLimiter, hitTestRectangle, FireBolts, EnemiesSpaceShips, endGameScene, Timer, CanvasDimensions) {
+define(["require", "exports", '../components/stage', '../components/state', '../components/sprites/parallaxBackground', '../components/sprites/usersSpaceShip', '../utils/BoundaryLimiter', '../utils/hitTestRectangle', '../components/sprites/FireBolts', '../components/sprites/EnemiesSpaceShips', './endGameScene', '../utils/Timer', '../utils/CanvasDimensions', '../components/particles/ExplosionParticle'], function (require, exports, stage, state, parallaxBackground, usersSpaceShip, BoundaryLimiter, hitTestRectangle, FireBolts, EnemiesSpaceShips, endGameScene, Timer, CanvasDimensions, ExplosionParticle) {
     function playScene() {
         var spaceShipDimensions = {
             width: usersSpaceShip.width,
@@ -52,6 +52,7 @@ define(["require", "exports", '../components/stage', '../components/state', '../
                 if (hitTestRectangle(ship, bolt)) {
                     stage.removeChild(ship);
                     stage.removeChild(bolt);
+                    ExplosionParticle.createExplosion(ship.position.x + ship.width / 2, ship.position.y + ship.height / 2);
                     ship.position.set(-1000, -1000);
                     bolt.position.set(-1000, -1000);
                 }
@@ -63,6 +64,7 @@ define(["require", "exports", '../components/stage', '../components/state', '../
             if (hitTestRectangle(usersSpaceShip, ship)) {
                 stage.removeChild(ship);
                 stage.removeChild(usersSpaceShip);
+                ExplosionParticle.createExplosion(ship.position.x + ship.width / 2, ship.position.y + ship.height / 2);
                 usersSpaceShip.position.set(CanvasDimensions.width, CanvasDimensions.height);
                 state.actualScene = endGameScene;
                 window.clearInterval(Timer.timerId);

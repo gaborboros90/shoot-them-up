@@ -1,5 +1,9 @@
 /// <reference path="../../lib/pixi.js.d.ts" />
 define(["require", "exports", 'pixi', '../components/stage', '../utils/RequestAnimHelper', '../components/renderer', '../components/sprites/FireBolts', '../components/sprites/EnemiesSpaceShips'], function (require, exports, PIXI, stage, RequestAnimHelper, renderer, FireBolts, EnemiesSpaceShips) {
+    /**
+     * @method endGameScene
+     * @description Publish the result of the game, and call backToMainScreen method
+     */
     function endGameScene() {
         var gameOverText = new PIXI.Text("You've lost the game!", {
             fontFamily: 'Arial',
@@ -11,6 +15,10 @@ define(["require", "exports", 'pixi', '../components/stage', '../utils/RequestAn
         window.cancelAnimationFrame(RequestAnimHelper.ID);
         backToMainScreen();
     }
+    /**
+     * @method
+     * @description Navigate back to main screen
+     */
     function backToMainScreen() {
         window.setTimeout(function () {
             var applicationContainerNode = document.querySelector('.application-container'), mainScreenNode = document.querySelector('.main-screen');
@@ -19,6 +27,10 @@ define(["require", "exports", 'pixi', '../components/stage', '../utils/RequestAn
             mainScreenNode.style.display = 'block';
         }, 5000);
     }
+    /**
+     * @method cleanUpApplication
+     * @description Clean up textures and game objects, when application ends
+     */
     function cleanUpApplication() {
         EnemiesSpaceShips.spaceShipsList = [];
         FireBolts.fireBoltsList = [];
