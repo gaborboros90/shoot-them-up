@@ -2,11 +2,11 @@
 
 import PIXI = require('pixi');
 import stage = require('../components/stage');
+import CanvasDimensions = require('../utils/CanvasDimensions');
 import RequestAnimHelper = require('../utils/RequestAnimHelper');
 import renderer = require('../components/renderer');
 import FireBolts = require('../components/sprites/FireBolts');
 import EnemiesSpaceShips = require('../components/sprites/EnemiesSpaceShips');
-
 
 /**
  * @method endGameScene
@@ -22,7 +22,7 @@ function endGameScene() {
     );
 
     stage.removeChildren(1);
-    gameOverText.position.set(stage.width / 2 - gameOverText.width / 2, 300 - gameOverText.height / 2);
+    gameOverText.position.set(stage.width / 2 - gameOverText.width / 2, CanvasDimensions.height / 2 - gameOverText.height / 2);
     stage.addChild(gameOverText);
 
     window.cancelAnimationFrame(RequestAnimHelper.ID);
