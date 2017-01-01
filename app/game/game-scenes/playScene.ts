@@ -99,7 +99,10 @@ function detectUsersSpaceShipDestroy():void {
 
             usersSpaceShip.position.set(CanvasDimensions.width,CanvasDimensions.height);
 
-            state.actualScene = endGameScene;
+            window.setTimeout(() => {
+                state.actualScene = endGameScene;
+            }, 1000);
+
             window.clearInterval(Timer.timerId);
         }
     });

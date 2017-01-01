@@ -66,7 +66,9 @@ define(["require", "exports", '../components/stage', '../components/state', '../
                 stage.removeChild(usersSpaceShip);
                 ExplosionParticle.createExplosion(ship.position.x + ship.width / 2, ship.position.y + ship.height / 2);
                 usersSpaceShip.position.set(CanvasDimensions.width, CanvasDimensions.height);
-                state.actualScene = endGameScene;
+                window.setTimeout(function () {
+                    state.actualScene = endGameScene;
+                }, 1000);
                 window.clearInterval(Timer.timerId);
             }
         });
